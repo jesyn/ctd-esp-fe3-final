@@ -15,9 +15,9 @@ const faqsPage: NextPage<Props> = ({ faqs }) => {
   );
 };
 
-/* export const getStaticProps: GetStaticProps = async () => {
-  // TODO Modificar la url por las que nos da Vercel al hacer deploy
-  const response = await fetch("http://localhost:3000/api/faqs");
+export const getStaticProps: GetStaticProps = async () => {
+  const url = "http://comics-online.vercel.app";
+  const response = await fetch(`${url}/api/faqs`);
   const faqs = await response.json();
 
   return {
@@ -25,6 +25,6 @@ const faqsPage: NextPage<Props> = ({ faqs }) => {
       faqs,
     },
   };
-}; */
+};
 
 export default faqsPage;
