@@ -9,7 +9,7 @@ export const theme = createTheme({
       main: "#629AD4", //blue
     },
     secondary: {
-      main: "#EBA74D", // orange
+      main: "#ca4a44", // red
     },
   },
 });
