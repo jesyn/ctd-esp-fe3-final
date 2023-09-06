@@ -8,7 +8,6 @@ const GeneralFooter = () => {
     <Box
       component={"footer"}
       display={"flex"}
-      p={"1rem 0"}
       alignItems="center"
       justifyContent={"center"}
       borderTop={"1px solid #eaeaea"}
