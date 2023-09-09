@@ -1,8 +1,7 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/material";
 import React from "react";
-import { ComicCard, PropsCard } from "./ComicCard";
-import Image from "next/image";
+import { ComicCard, PropsCard } from "../ComicCard/ComicCard";
 
 interface PropsGrid {
   comics: PropsCard[];
@@ -11,14 +10,17 @@ interface PropsGrid {
 const ComicGrid = ({ comics }: PropsGrid) => {
   return (
     <Container sx={{ paddingTop: "20px", paddingBottom: "30px" }}>
-      {/*  <Image
-        src="/fondo-comics2.jpg"
-        alt="fondo de comics"
-        layout="fill"
-        style={{ position: "absolute", top: "50px", bottom: "50px" }}
-      /> */}
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {comics && comics.map((comic) => <ComicCard key={comic.id} id={comic.id} name={comic.name} image={comic.image} />)}
+        {comics &&
+          comics.map((comic) => (
+            <Grid key={comic.id} item xs={12} sm={6} md={3}>
+              <ComicCard
+                id={comic.id}
+                title={comic.title}
+                image={comic.image}
+              />
+            </Grid>
+          ))}
       </Grid>
     </Container>
   );

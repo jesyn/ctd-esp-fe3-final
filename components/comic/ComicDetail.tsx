@@ -3,26 +3,21 @@ import { Box } from "@mui/material";
 import { Card } from "@mui/material";
 import { Button } from "@mui/material";
 import { CardContent } from "@mui/material";
-import { CardHeader } from "@mui/material";
 import { CardMedia } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { Select } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import { Container } from "@mui/material";
 import { IComic } from "contracts/comics.contract";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Link from "next/link";
+import CharacterList from "./CharacterList";
 
 interface PropsDetail {
-  //comic: IComic;
+  comic: IComic;
   onBuyClick: () => void;
+  onGoBackClick: () => void;
 }
 
-const ComicDetail = ({ onBuyClick }: PropsDetail) => {
-  //const isOutOfStock = comic?.stock === 0;
+const ComicDetail = ({ comic, onBuyClick, onGoBackClick }: PropsDetail) => {
+  const isOutOfStock = comic?.stock === 0;
 
   return (
     <Card>
@@ -31,16 +26,19 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
           position: "relative",
         }}
       >
-        <Link href="/">
-          <ArrowBackIcon
-            fontSize="large"
-            color="secondary"
-            sx={{
-              cursor: "pointer",
-              position: "absolute",
-            }}
-          />
-        </Link>
+        <ArrowBackIcon
+          fontSize="large"
+          color="secondary"
+          onClick={onGoBackClick}
+          sx={{
+            cursor: "pointer",
+            position: "absolute",
+            "@media (max-width: 768px)": {
+              display: "none",
+            },
+          }}
+        />
+
         <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
           <Grid
             item
@@ -55,10 +53,10 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
           >
             <CardMedia
               component="img"
-              alt="imagen" /* {comic.title} */
+              alt={comic.title}
               height="350"
-              image="/fondo-comics.jpg" /* {comic.image} */
-              title="titulo" /* {comic.title} */
+              image={comic.image}
+              title={comic.title}
             />
           </Grid>
 
@@ -72,10 +70,10 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
               gap: "5px",
             }}
           >
-            <Box sx={{ marginBottom: "10px" }}>
+            <Box mb={2}>
               <Typography variant="h6">Comic</Typography>
               <Typography
-                variant="h3"
+                variant="h4"
                 color="secondary"
                 sx={{
                   "@media (max-width: 768px)": {
@@ -83,25 +81,25 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
                   },
                 }}
               >
-                nombre del producto {/*  title={comic.title} */}
+                {comic.title}
               </Typography>
             </Box>
 
-            <Box sx={{ marginBottom: "10px" }}>
+            <Box mb={2}>
               <Typography variant="h6" color="success">
                 Precio:
               </Typography>
-              {/*  {previousPrice && (
-          <Typography variant="body2" color="secondary">
-            Precio anterior: ${previousPrice}
-          </Typography>
-        )} */}
-              <Typography mb={2} variant="h4">
-                $100 {/* {comic.price} */}
-              </Typography>
-              <Typography variant="h6">Stock Disponible:</Typography>
-              <Typography>
-                sin stock {/* {isOutOfStock ? "Sin stock" : comic.stock} */}
+              <Typography variant="h4">${comic.price}</Typography>
+
+              {comic.oldPrice && (
+                <Typography mb={2} variant="body2" color="secondary">
+                  Precio anterior: ${comic.oldPrice}
+                </Typography>
+              )}
+
+              <Typography variant="h6">Disponible:</Typography>
+              <Typography variant="h5">
+                {isOutOfStock ? "Sin stock" : comic.stock + " unidades"}
               </Typography>
             </Box>
 
@@ -114,21 +112,9 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
                 margin: "5px 0",
               }}
             />
-            <Typography>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              sequi cumque, magni consequatur aliquam, temporibus sed modi quasi
-              neque animi excepturi et commodi saepe eligendi. Non commodi amet
-              esse explicabo? {/* {comic.description} */}
-            </Typography>
+            <Typography mb={2}>{comic.description}</Typography>
 
-            {/* <FormControl fullWidth>
-                <InputLabel>Selecciona un personaje: </InputLabel>
-                <Select disabled={isOutOfStock}>
-                    {comic.characters.map((character, index) => (
-                    <MenuItem value={index}> key={index}>{character}</MenuItem>
-                ))}
-                </Select>
-            </FormControl>  */}
+            <CharacterList characters={comic.characters} />
 
             <Box
               mt={2}
@@ -141,7 +127,7 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
                 variant="contained"
                 color="primary"
                 onClick={onBuyClick}
-                //disabled={isOutOfStock}
+                disabled={isOutOfStock}
                 sx={{
                   width: "150px",
                   "@media (max-width: 768px)": {
@@ -149,8 +135,7 @@ const ComicDetail = ({ onBuyClick }: PropsDetail) => {
                   },
                 }}
               >
-                comprar
-                {/* {isOutOfStock ? "Sin stock" : "Comprar"} */}
+                {isOutOfStock ? "Sin stock" : "Comprar"}
               </Button>
             </Box>
           </Grid>
