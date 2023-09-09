@@ -2,18 +2,39 @@ export interface IComic {
   id: number;
   title: string;
   image: string;
-  description: string;
+  description: string[];
   price: number;
-  characters: string[];
+  oldPrice?: number;
+  characters: ResourceCharacter[];
   stock: number;
+  pageCount: number;
 }
 
-export interface ApiComic {
+export interface ApiComics {
   offset: number;
   limit: number;
   total: number;
   count: number;
   results: Result[];
+}
+
+export interface ApiComic extends Result {}
+
+export interface ResourceCharacter {
+  resourceUri: string;
+  name: string;
+}
+
+export interface IMetadata {
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
+}
+
+export interface IPaginatedComic {
+  comics: IComic[];
+  meta: IMetadata;
 }
 
 export interface Result {
@@ -31,7 +52,7 @@ export interface Result {
   issn: string;
   format: string;
   pageCount: number;
-  textObjects: any[];
+  textObjects: TextObjet[];
   resourceURI: string;
   urls: Url[];
   series: Series;
@@ -46,6 +67,9 @@ export interface Result {
   characters: Characters;
   stories: Stories;
   events: Events;
+  price?: number;
+  oldPrice?: number;
+  stock?: number;
 }
 
 export interface Url {
@@ -78,6 +102,12 @@ export interface Thumbnail {
   extension: string;
 }
 
+export interface TextObjet {
+  type: string;
+  language: string;
+  text: string;
+}
+
 export interface Creators {
   available: number;
   collectionURI: string;
@@ -94,7 +124,7 @@ export interface Item {
 export interface Characters {
   available: number;
   collectionURI: string;
-  items: any[];
+  items: Item2[];
   returned: number;
 }
 
