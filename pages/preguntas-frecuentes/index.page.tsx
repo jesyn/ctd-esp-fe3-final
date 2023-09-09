@@ -1,7 +1,7 @@
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import { FaqsType } from "../components/faqs/faqsData";
 import { GetStaticProps, NextPage } from "next";
 import FaqSection from "dh-marvel/components/faqs/FaqSection";
+import { FaqsType } from "dh-marvel/components/faqs";
 
 interface Props {
   faqs: FaqsType[];
