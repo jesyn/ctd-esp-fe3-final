@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { ICharacter } from "contracts/character.contract";
-import CharacterDetail from "dh-marvel/components/character/CharacterDetail";
+import CharacterDetail from "dh-marvel/components/Character/CharacterDetail";
 import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
 import { toFrontCharacter } from "mappers/character.mapper";
 import { GetServerSideProps, NextPage } from "next";
@@ -17,8 +17,6 @@ const CharacterPage: NextPage<PropsCharacter> = ({ character }) => {
   const handleClickGoBack = () => {
     router.back();
   };
-
-  console.log({ character });
 
   return (
     <Container
@@ -43,7 +41,6 @@ const CharacterPage: NextPage<PropsCharacter> = ({ character }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = Number(context.params?.id);
   const characterApi = await getCharacter(id);
-  console.log(characterApi);
   const character = toFrontCharacter(characterApi);
 
   return {
