@@ -47,7 +47,7 @@ const PaymentInfoForm = () => {
         expiry={state.expiry}
         cvc={state.cvc}
         name={state.name}
-        focused={state.focus}
+        //focused={state.focus}
       />
 
       <form>

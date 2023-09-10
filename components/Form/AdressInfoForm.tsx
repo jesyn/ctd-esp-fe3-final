@@ -23,7 +23,7 @@ const AdressInfoForm = () => {
         defaultValue=""
         placeholder="eg: Av. Corrientes 1458"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       <InputCustom
@@ -34,7 +34,7 @@ const AdressInfoForm = () => {
         defaultValue=""
         placeholder="eg: 2 A"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       <InputCustom
@@ -45,7 +45,7 @@ const AdressInfoForm = () => {
         defaultValue=""
         placeholder="eg: Buenos Aires"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       <InputCustom
@@ -56,7 +56,7 @@ const AdressInfoForm = () => {
         defaultValue=""
         placeholder="eg: La plata"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       <InputCustom
@@ -67,7 +67,7 @@ const AdressInfoForm = () => {
         defaultValue=""
         placeholder="eg: CP1256"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
     </>
   );

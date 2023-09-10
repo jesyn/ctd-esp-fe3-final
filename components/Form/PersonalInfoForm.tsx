@@ -24,7 +24,7 @@ const PersonalInfoForm = () => {
         defaultValue=""
         placeholder="eg: Laura"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       {/*  <Typography variant="caption" color="error">
@@ -39,7 +39,7 @@ const PersonalInfoForm = () => {
         defaultValue=""
         placeholder="eg: Martinez"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       {/*  <Typography variant="caption" color="red">
@@ -54,7 +54,7 @@ const PersonalInfoForm = () => {
         defaultValue=""
         placeholder="eg: lauramartinez@gmail.com"
         error={errors.name ? true : false}
-        messageError={errors.name?.message}
+        //messageError={errors.name?.message}
       />
 
       {/* <Typography variant="caption" color="red">
