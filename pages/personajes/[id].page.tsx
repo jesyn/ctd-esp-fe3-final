@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { ICharacter } from "contracts/character.contract";
-import CharacterDetail from "dh-marvel/components/Character/CharacterDetail";
+import CharacterDetail from "dh-marvel/components/character/CharacterDetail";
 import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
 import { toFrontCharacter } from "mappers/character.mapper";
 import { GetServerSideProps, NextPage } from "next";
