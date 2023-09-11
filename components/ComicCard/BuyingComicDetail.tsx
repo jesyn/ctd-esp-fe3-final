@@ -26,10 +26,10 @@ const BuyingComicDetail = ({ comic }: PropsComicDetail) => {
       >
         <CardMedia
           component="img"
-          alt="texto imagen" /* {comic.title} */
+          alt={comic.title}
           height="200"
-          image="/fondo-comics.jpg" /* {comic.image} */
-          title="titulo" /* {comic.title} */
+          image={comic.image}
+          title={comic.title}
         />
 
         <Box mb={2}>
@@ -42,7 +42,7 @@ const BuyingComicDetail = ({ comic }: PropsComicDetail) => {
               },
             }}
           >
-            nombre del comic {/* {comic.title} */}
+            {comic.title}
           </Typography>
         </Box>
 
@@ -50,7 +50,7 @@ const BuyingComicDetail = ({ comic }: PropsComicDetail) => {
           <Typography variant="h6" color="success">
             Precio:
           </Typography>
-          <Typography variant="h4">$100{/* {comic.price} */}</Typography>
+          <Typography variant="h4">${comic.price}</Typography>
         </Box>
       </CardContent>
     </Card>
