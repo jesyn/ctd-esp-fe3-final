@@ -5,7 +5,6 @@ import ComicGrid from "dh-marvel/components/ComicGrid/ComicGrid";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import { toFrontComics } from "mappers/comic.mapper";
 import ComicPagination from "dh-marvel/components/Pagination/ComicPagination";
-import { useState } from "react";
 import { IPaginatedComic } from "contracts/comics.contract";
 import { useRouter } from "next/router";
 

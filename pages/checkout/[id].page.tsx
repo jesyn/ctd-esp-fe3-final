@@ -1,5 +1,5 @@
 import React from "react";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import BuyingComicDetail from "dh-marvel/components/ComicCard/BuyingComicDetail";
 import { useRouter } from "next/router";
@@ -10,6 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Forms from "dh-marvel/components/Form/Forms";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
+import { toFrontComic, toFrontComics } from "mappers/comic.mapper";
 
 interface PropsCheckout {
   comic: IComic;
@@ -28,6 +30,8 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     resolver: yupResolver(schema),
     defaultValues: {},
   });
+
+  console.log({ comic });
 
   return (
     <Container
@@ -90,5 +94,39 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     </Container>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = Number(params?.id);
+
+  try {
+    const comicApi = await getComic(id);
+    const comic = toFrontComic(comicApi);
+
+    return {
+      props: {
+        comic,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.error("No se pudo obtener el comic", error);
+    return {
+      props: {
+        comic: {},
+      },
+    };
+  }
+};
+
+export async function getStaticPaths() {
+  const comicsApi = await getComics();
+  const comics = toFrontComics(comicsApi.data);
+
+  const paths = comics.comics.map((comic) => ({
+    params: { id: comic.id.toString() },
+  }));
+
+  return { paths, fallback: "blocking" };
+}
 
 export default CheckoutPage;
