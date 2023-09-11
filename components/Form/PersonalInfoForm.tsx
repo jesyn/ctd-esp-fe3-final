@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputCustom from "../InputCustom/InputCustom";
 import { Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-//import { ErrorMessage } from "@hookform/error-message";
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({
+  setHasErrors,
+}: {
+  setHasErrors: (value: boolean) => void;
+}) => {
   const {
     control,
     formState: { errors },
+    trigger,
   } = useFormContext();
+
+  useEffect(() => {
+    setHasErrors(!!Object.keys(errors).length);
+  }, [errors.name, errors.lastName, errors.email, setHasErrors]);
 
   return (
     <>
@@ -23,13 +31,12 @@ const PersonalInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: Laura"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.name}
+        messageError={errors.name?.message as string}
+        onChange={async () => {
+          trigger("name");
+        }}
       />
-
-      {/*  <Typography variant="caption" color="error">
-        <ErrorMessage errors={errors} name="name" />
-      </Typography> */}
 
       <InputCustom
         name="lastName"
@@ -38,13 +45,12 @@ const PersonalInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: Martinez"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.lastName}
+        messageError={errors.lastName?.message as string}
+        onChange={async () => {
+          trigger("lastName");
+        }}
       />
-
-      {/*  <Typography variant="caption" color="red">
-        <ErrorMessage errors={errors} name="lastName" />
-      </Typography> */}
 
       <InputCustom
         name="email"
@@ -53,13 +59,12 @@ const PersonalInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: lauramartinez@gmail.com"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.email}
+        messageError={errors.email?.message as string}
+        onChange={async () => {
+          trigger("email");
+        }}
       />
-
-      {/* <Typography variant="caption" color="red">
-        <ErrorMessage errors={errors} name="email" />
-      </Typography> */}
     </>
   );
 };

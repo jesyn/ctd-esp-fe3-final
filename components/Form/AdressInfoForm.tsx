@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputCustom from "../InputCustom/InputCustom";
 import { Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
-const AdressInfoForm = () => {
+const AdressInfoForm = ({
+  setHasErrors,
+}: {
+  setHasErrors: (value: boolean) => void;
+}) => {
   const {
     control,
     formState: { errors },
+    trigger,
   } = useFormContext();
+
+  useEffect(() => {
+    setHasErrors(!!Object.keys(errors).length);
+  }, [
+    errors.adress,
+    errors.department,
+    errors.province,
+    errors.city,
+    errors.postalCode,
+    setHasErrors,
+  ]);
 
   return (
     <>
@@ -22,8 +38,11 @@ const AdressInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: Av. Corrientes 1458"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.adress}
+        messageError={errors.adress?.message as string}
+        onChange={async () => {
+          trigger("adress");
+        }}
       />
 
       <InputCustom
@@ -33,8 +52,11 @@ const AdressInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: 2 A"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.department}
+        messageError={errors.department?.message as string}
+        onChange={async () => {
+          trigger("department");
+        }}
       />
 
       <InputCustom
@@ -44,8 +66,11 @@ const AdressInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: Buenos Aires"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.province}
+        messageError={errors.province?.message as string}
+        onChange={async () => {
+          trigger("province");
+        }}
       />
 
       <InputCustom
@@ -55,8 +80,11 @@ const AdressInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: La plata"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.city}
+        messageError={errors.city?.message as string}
+        onChange={async () => {
+          trigger("city");
+        }}
       />
 
       <InputCustom
@@ -66,8 +94,11 @@ const AdressInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: CP1256"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={!!errors.postalCode}
+        messageError={errors.postalCode?.message as string}
+        onChange={async () => {
+          trigger("postalCode");
+        }}
       />
     </>
   );

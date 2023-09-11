@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useState, ChangeEvent, FocusEvent } from "react";
+import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import Cards from "react-credit-cards-2";
 import InputCustom from "../InputCustom/InputCustom";
 import { useFormContext } from "react-hook-form";
@@ -9,14 +9,29 @@ interface cardState {
   expiry: string;
   cvc: string;
   name: string;
-  focus: string;
+  focus?: string;
 }
 
-const PaymentInfoForm = () => {
+const PaymentInfoForm = ({
+  setHasErrors,
+}: {
+  setHasErrors: (value: boolean) => void;
+}) => {
   const {
     control,
     formState: { errors },
+    trigger,
   } = useFormContext();
+
+  useEffect(() => {
+    setHasErrors(!!Object.keys(errors).length);
+  }, [
+    errors.cardNumber,
+    errors.cardHolderName,
+    errors.expirationDate,
+    errors.securityCode,
+    setHasErrors,
+  ]);
 
   const [state, setState] = useState<cardState>({
     cardNumber: "",
@@ -68,8 +83,11 @@ const PaymentInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: 4242424242424242"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={errors.cardNumber ? true : false}
+        messageError={errors.cardNumber?.message as string}
+        onChange={async () => {
+          trigger("cardNumber");
+        }}
         //value={state.cardNumber}
         //onChange={handleInputChange}
         //onFocus={handleInputFocus}
@@ -82,8 +100,11 @@ const PaymentInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: Laura Martinez"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={errors.cardHolderName ? true : false}
+        messageError={errors.cardHolderName?.message as string}
+        onChange={async () => {
+          trigger("cardHolderName");
+        }}
       />
       <InputCustom
         name="expirationDate"
@@ -92,8 +113,11 @@ const PaymentInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: 12/26"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={errors.expirationDate ? true : false}
+        messageError={errors.expirationDate?.message as string}
+        onChange={async () => {
+          trigger("expirationDate");
+        }}
       />
 
       <InputCustom
@@ -103,8 +127,11 @@ const PaymentInfoForm = () => {
         control={control}
         defaultValue=""
         placeholder="eg: 123"
-        error={errors.name ? true : false}
-        //messageError={errors.name?.message}
+        error={errors.securityCode ? true : false}
+        messageError={errors.securityCode?.message as string}
+        onChange={async () => {
+          trigger("securityCode");
+        }}
       />
     </div>
   );

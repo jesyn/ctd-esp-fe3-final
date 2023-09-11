@@ -1,6 +1,12 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { Control, Controller } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+} from "react-hook-form";
 
 interface CustomTextFieldProps {
   name: string;
@@ -12,6 +18,7 @@ interface CustomTextFieldProps {
   defaultValue?: string;
   error?: boolean;
   messageError?: string;
+  onChange?: (e: string) => void;
 }
 
 const InputCustom = ({
@@ -24,6 +31,7 @@ const InputCustom = ({
   defaultValue,
   error,
   messageError,
+  onChange,
 }: CustomTextFieldProps) => {
   return (
     <Controller
@@ -42,6 +50,10 @@ const InputCustom = ({
           error={error}
           helperText={messageError}
           sx={{ mb: 2 }}
+          onChange={(e) => {
+            field.onChange(e);
+            onChange?.(e.target.value);
+          }}
         />
       )}
     />
