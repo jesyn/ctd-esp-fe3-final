@@ -18,16 +18,16 @@ const PersonalInfoForm = () => {
 
       <Container>
         <InputCustom
-          name="name"
+          name="firstName"
           label="Nombre"
           type="text"
           control={control}
           defaultValue=""
           placeholder="eg: Laura"
-          error={!!errors.name}
-          messageError={errors.name?.message as string}
+          error={!!errors.firstName}
+          messageError={errors.firstName?.message as string}
           onChange={async () => {
-            trigger("name");
+            trigger("firstName");
           }}
         />
 

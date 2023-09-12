@@ -9,7 +9,7 @@ import PaymentInfoForm from "./PaymentInfoForm";
 
 const initialData = {
   personalData: {
-    name: "",
+    firstName: "",
     lastName: "",
     email: "",
   },
@@ -42,6 +42,8 @@ const Forms = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
+  console.log("0" + { data });
+
   const onNextStep = async () => {
     trigger().then(() => {
       if (currentStep === 1) {
@@ -50,7 +52,7 @@ const Forms = () => {
         const email = getFieldState("email");
 
         const inputs = [firstName, lastName, email];
-
+        console.log({ inputs });
         const hasErrors = inputs.some((input) => input.invalid);
 
         if (hasErrors) {
@@ -66,6 +68,7 @@ const Forms = () => {
           },
         };
         setData(updatedData);
+        console.log("1" + { data });
       }
       if (currentStep === 2) {
         const address = getFieldState("address");
@@ -93,6 +96,7 @@ const Forms = () => {
           },
         };
         setData(updatedData);
+        console.log({ data });
       }
       if (currentStep === 3) {
         const cardNumber = getFieldState("cardNumber");

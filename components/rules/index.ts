@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const schema = yup.object({
-  name: yup
+  firstName: yup
     .string()
     .required("El nombre es requerido")
     .min(2, "Mínimo 3 caracteres")
@@ -27,21 +27,21 @@ export const schema = yup.object({
   province: yup.string().required("La provincia es requerida"),
   postalCode: yup.string().required("El código postal es requerido"),
 
-  cardNumber: yup
+  number: yup
     .string()
     .matches(/^[0-9]{16}$/, "El número de la tarjeta debe tener 16 dígitos")
     .required("El número de la tarjeta es requerido"),
-  cardHolderName: yup
+  name: yup
     .string()
     .required("El nombre que figura en la tarjeta es requerido"),
-  expirationDate: yup
+  expiry: yup
     .string()
     .matches(
       /^(0[1-9]|1[0-2])\/[0-9]{2}$/,
       "fecha de expiración inválida (MM/YY)"
     )
     .required("La fecha de expiración es requerido"),
-  securityCode: yup
+  cvc: yup
     .string()
     .matches(/^[0-9]{3}$/, "el código de seguridad debe tener 3 dígitos")
     .required("El código de seguridad es requerido"),
