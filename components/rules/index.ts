@@ -4,12 +4,12 @@ export const schema = yup.object({
   name: yup
     .string()
     .required("El nombre es requerido")
-    .min(2, "Mínimo 2 caracteres")
+    .min(2, "Mínimo 3 caracteres")
     .max(10, "Máximo 10 caracteres"),
   lastName: yup
     .string()
     .required("El apellido es requerido")
-    .min(2, "Mínimo 2 caracteres")
+    .min(2, "Mínimo 5 caracteres")
     .max(10, "Máximo 10 caracteres"),
   email: yup
     .string()
