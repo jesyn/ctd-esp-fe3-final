@@ -15,7 +15,7 @@ const ComicsPage: NextPage<PropsComic> = ({ comic }) => {
   const router = useRouter();
 
   const handleClickToBy = () => {
-    router.push("/checkout/");
+    router.push(`/checkout/${comic.id}`);
   };
 
   const handleClickGoBack = () => {
