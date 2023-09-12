@@ -1,12 +1,6 @@
-import React from "react";
+import React, { ChangeEvent, FocusEvent } from "react";
 import TextField from "@mui/material/TextField";
-import {
-  Control,
-  Controller,
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-} from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 interface CustomTextFieldProps {
   name: string;
@@ -18,7 +12,8 @@ interface CustomTextFieldProps {
   defaultValue?: string;
   error?: boolean;
   messageError?: string;
-  onChange?: (e: string) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 const InputCustom = ({
@@ -32,6 +27,7 @@ const InputCustom = ({
   error,
   messageError,
   onChange,
+  onFocus,
 }: CustomTextFieldProps) => {
   return (
     <Controller
@@ -52,7 +48,10 @@ const InputCustom = ({
           sx={{ mb: 2 }}
           onChange={(e) => {
             field.onChange(e);
-            onChange?.(e.target.value);
+            onChange?.(e as ChangeEvent<HTMLInputElement>);
+          }}
+          onFocus={(e) => {
+            onFocus?.(e as FocusEvent<HTMLInputElement>);
           }}
         />
       )}

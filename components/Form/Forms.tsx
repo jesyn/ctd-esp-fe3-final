@@ -1,5 +1,5 @@
 import { Box, Paper, Button } from "@mui/material";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useState } from "react";
 import confetti from "canvas-confetti";
 import { useFormContext } from "react-hook-form";
 import PersonalInfoForm from "./PersonalInfoForm";
@@ -21,29 +21,112 @@ const initialData = {
     postalCode: "",
   },
   paymentData: {
-    cardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    securityCode: "",
+    number: "",
+    name: "",
+    expiry: "",
+    cvc: "",
   },
 };
 
 const Forms = () => {
-  const { handleSubmit } = useFormContext();
+  const {
+    handleSubmit,
+    trigger,
+    getFieldState,
+    clearErrors,
+    getValues,
+    formState,
+  } = useFormContext();
 
   const [data, setData] = useState(initialData);
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  const [hasErrors, setHasErrors] = useState(false);
+  const onNextStep = async () => {
+    trigger().then(() => {
+      if (currentStep === 1) {
+        const firstName = getFieldState("firstName");
+        const lastName = getFieldState("lastName");
+        const email = getFieldState("email");
 
-  const onNextStep = () => {
-    if (currentStep === 3 || hasErrors) {
-      return;
-    } else {
+        const inputs = [firstName, lastName, email];
+
+        const hasErrors = inputs.some((input) => input.invalid);
+
+        if (hasErrors) {
+          return;
+        }
+
+        const updatedData = {
+          ...data,
+          personalData: {
+            firstName: getValues("firstName"),
+            lastName: getValues("lastName"),
+            email: getValues("email"),
+          },
+        };
+        setData(updatedData);
+      }
+      if (currentStep === 2) {
+        const address = getFieldState("address");
+        const department = getFieldState("department");
+        const province = getFieldState("province");
+        const city = getFieldState("city");
+        const postalCode = getFieldState("postalCode");
+
+        const inputs = [address, department, province, city, postalCode];
+
+        const hasErrors = inputs.some((input) => input.invalid);
+
+        if (hasErrors) {
+          return;
+        }
+
+        const updatedData = {
+          ...data,
+          addressData: {
+            address: getValues("address"),
+            department: getValues("department"),
+            province: getValues("province"),
+            city: getValues("city"),
+            postalCode: getValues("postalCode"),
+          },
+        };
+        setData(updatedData);
+      }
+      if (currentStep === 3) {
+        const cardNumber = getFieldState("cardNumber");
+        const cardHolderName = getFieldState("cardHolderName");
+        const expirationDate = getFieldState("expirationDate");
+        const securityCode = getFieldState("securityCode");
+
+        const inputs = [
+          cardNumber,
+          cardHolderName,
+          expirationDate,
+          securityCode,
+        ];
+
+        const hasErrors = inputs.some((input) => input.invalid);
+
+        if (hasErrors) {
+          return;
+        }
+
+        const updatedData = {
+          ...data,
+          paymentData: {
+            number: getValues("number"),
+            name: getValues("name"),
+            expiry: getValues("expiry"),
+            cvc: getValues("cvc"),
+          },
+        };
+        setData(updatedData);
+      }
       setCurrentStep(currentStep + 1);
-      setHasErrors(false);
-    }
+      clearErrors();
+    });
   };
 
   const onPreviousStep = () => {
@@ -51,7 +134,6 @@ const Forms = () => {
       return;
     } else {
       setCurrentStep(currentStep - 1);
-      setHasErrors(false);
     }
   };
 
@@ -73,19 +155,23 @@ const Forms = () => {
     <Box sx={{ maxWidth: "500px" }}>
       <Paper
         elevation={1}
-        sx={{ p: "32px", display: "flex", flexDirection: "column", gap: 3 }}
+        sx={{ display: "flex", flexDirection: "column", gap: 3 }}
       >
-        <Box>
+        <Box sx={{ marginTop: "20px" }}>
           <StepperForm activeStep={currentStep - 1} />
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {currentStep === 1 && (
-            <PersonalInfoForm setHasErrors={setHasErrors} />
-          )}
-          {currentStep === 2 && <AdressInfoForm setHasErrors={setHasErrors} />}
-          {currentStep === 3 && <PaymentInfoForm setHasErrors={setHasErrors} />}
+          {currentStep === 1 && <PersonalInfoForm />}
+          {currentStep === 2 && <AdressInfoForm />}
+          {currentStep === 3 && <PaymentInfoForm />}
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              margin: "10px 15px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <Button
               variant="outlined"
               sx={{ opacity: currentStep === 1 ? 0 : 100 }}

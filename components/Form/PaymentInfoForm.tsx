@@ -1,40 +1,26 @@
-import { Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
-import Cards from "react-credit-cards-2";
+import Cards, { Focused } from "react-credit-cards-2";
 import InputCustom from "../InputCustom/InputCustom";
 import { useFormContext } from "react-hook-form";
 
 interface cardState {
-  cardNumber: string;
+  number: string;
   expiry: string;
   cvc: string;
   name: string;
   focus?: string;
 }
 
-const PaymentInfoForm = ({
-  setHasErrors,
-}: {
-  setHasErrors: (value: boolean) => void;
-}) => {
+const PaymentInfoForm = () => {
   const {
     control,
     formState: { errors },
     trigger,
   } = useFormContext();
 
-  useEffect(() => {
-    setHasErrors(!!Object.keys(errors).length);
-  }, [
-    errors.cardNumber,
-    errors.cardHolderName,
-    errors.expirationDate,
-    errors.securityCode,
-    setHasErrors,
-  ]);
-
   const [state, setState] = useState<cardState>({
-    cardNumber: "",
+    number: "",
     expiry: "",
     cvc: "",
     name: "",
@@ -52,88 +38,95 @@ const PaymentInfoForm = ({
   };
 
   return (
-    <div>
-      <Typography variant="h5" mb={2}>
+    <>
+      <Typography variant="h5" mb={2} textAlign={"center"}>
         Datos de pago
       </Typography>
 
-      <Cards
-        number={state.cardNumber}
-        expiry={state.expiry}
-        cvc={state.cvc}
-        name={state.name}
-        //focused={state.focus}
-      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "5px",
+          margin: "15px 0px",
+        }}
+      >
+        <Cards
+          number={state.number}
+          expiry={state.expiry}
+          cvc={state.cvc}
+          name={state.name}
+          focused={state.focus as Focused}
+        />
+      </Box>
 
-      <form>
-        <input
-          type="number"
-          name="cardNumber"
-          placeholder="Card Number"
-          value={state.cardNumber}
-          onChange={handleInputChange}
+      <Container>
+        <InputCustom
+          name="number"
+          label="Número de la tarjeta"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: 4242424242424242"
+          error={!!errors.number}
+          messageError={errors.number?.message as string}
+          onChange={async (e) => {
+            trigger("number");
+            handleInputChange(e);
+          }}
           onFocus={handleInputFocus}
         />
-      </form>
 
-      <InputCustom
-        name="cardNumber"
-        label="Número de la tarjeta"
-        type="text"
-        control={control}
-        defaultValue=""
-        placeholder="eg: 4242424242424242"
-        error={errors.cardNumber ? true : false}
-        messageError={errors.cardNumber?.message as string}
-        onChange={async () => {
-          trigger("cardNumber");
-        }}
-        //value={state.cardNumber}
-        //onChange={handleInputChange}
-        //onFocus={handleInputFocus}
-      />
+        <InputCustom
+          name="name"
+          label="Nombre del titular"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: Laura Martinez"
+          error={!!errors.name}
+          messageError={errors.name?.message as string}
+          onChange={async (e) => {
+            trigger("name");
+            handleInputChange(e);
+          }}
+          onFocus={handleInputFocus}
+        />
+        <InputCustom
+          name="expiry"
+          label="Fecha de expiración"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: 12/26"
+          error={!!errors.expiry}
+          messageError={errors.expiry?.message as string}
+          onChange={async (e) => {
+            trigger("expiry");
+            handleInputChange(e);
+          }}
+          onFocus={handleInputFocus}
+        />
 
-      <InputCustom
-        name="cardHolderName"
-        label="Nombre del titular"
-        type="text"
-        control={control}
-        defaultValue=""
-        placeholder="eg: Laura Martinez"
-        error={errors.cardHolderName ? true : false}
-        messageError={errors.cardHolderName?.message as string}
-        onChange={async () => {
-          trigger("cardHolderName");
-        }}
-      />
-      <InputCustom
-        name="expirationDate"
-        label="Fecha de expiración"
-        type="text"
-        control={control}
-        defaultValue=""
-        placeholder="eg: 12/26"
-        error={errors.expirationDate ? true : false}
-        messageError={errors.expirationDate?.message as string}
-        onChange={async () => {
-          trigger("expirationDate");
-        }}
-      />
-
-      <InputCustom
-        name="securityCode"
-        label="código de seguridad"
-        type="password"
-        control={control}
-        defaultValue=""
-        placeholder="eg: 123"
-        error={errors.securityCode ? true : false}
-        messageError={errors.securityCode?.message as string}
-        onChange={async () => {
-          trigger("securityCode");
-        }}
-      />
-    </div>
+        <InputCustom
+          name="cvc"
+          label="código de seguridad"
+          type="password"
+          control={control}
+          defaultValue=""
+          placeholder="eg: 123"
+          error={!!errors.cvc}
+          messageError={errors.cvc?.message as string}
+          onChange={async (e) => {
+            trigger("cvc");
+            handleInputChange(e);
+          }}
+          onFocus={handleInputFocus}
+        />
+      </Container>
+    </>
   );
 };
 
