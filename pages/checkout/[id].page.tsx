@@ -31,8 +31,6 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     defaultValues: {},
   });
 
-  console.log({ comic });
-
   return (
     <Container
       maxWidth="md"
@@ -46,7 +44,12 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     >
       <Paper
         elevation={1}
-        sx={{ p: "32px", display: "flex", flexDirection: "column", gap: 3 }}
+        sx={{
+          padding: "10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
       >
         <ArrowBackIcon
           fontSize="large"
@@ -60,36 +63,41 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
             },
           }}
         />
-        <Typography variant="h4" align="center">
+        <Typography variant="h4" align="center" mt={2}>
           Formulario de compra
         </Typography>
-
-        <Container
-          sx={{
-            display: "flex",
-            gap: "25px",
-          }}
-        >
-          <Box
+        <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
+          <Grid
+            item
+            xs={12}
+            md={4}
             sx={{
               display: "flex",
-              gap: "15px",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <BuyingComicDetail comic={comic} />
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            xs={12}
+            md={8}
             sx={{
               display: "flex",
-              gap: "15px",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "5px",
             }}
           >
             <FormProvider {...methods}>
               <Forms />
             </FormProvider>
-          </Box>
-        </Container>
+          </Grid>
+        </Grid>
       </Paper>
     </Container>
   );
