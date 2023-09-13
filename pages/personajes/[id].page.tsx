@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import { ICharacter } from "contracts/character.contract";
 import CharacterDetail from "dh-marvel/components/character/CharacterDetail";
+import LayoutGeneral from "dh-marvel/components/layouts/layout-general";
 import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
 import { toFrontCharacter } from "mappers/character.mapper";
 import { GetServerSideProps, NextPage } from "next";
@@ -19,22 +20,24 @@ const CharacterPage: NextPage<PropsCharacter> = ({ character }) => {
   };
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "20px",
-        marginBottom: "30px",
-      }}
-    >
-      <CharacterDetail
-        character={character}
-        onGoBackClick={handleClickGoBack}
-      />
-    </Container>
+    <LayoutGeneral>
+      <Container
+        maxWidth="md"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "20px",
+          marginBottom: "30px",
+        }}
+      >
+        <CharacterDetail
+          character={character}
+          onGoBackClick={handleClickGoBack}
+        />
+      </Container>
+    </LayoutGeneral>
   );
 };
 

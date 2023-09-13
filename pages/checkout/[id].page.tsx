@@ -15,6 +15,7 @@ import { toFrontComic, toFrontComics } from "mappers/comic.mapper";
 import confetti from "canvas-confetti";
 import { RawCheckoutRequest } from "contracts/checkout.contract";
 import { toApiCheckout } from "mappers/checkout.mapper";
+import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
 interface PropsCheckout {
   comic: IComic;
@@ -51,12 +52,6 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
         method: "POST",
         body: JSON.stringify(request),
       });
-      /* if (response.ok) {
-        response.setHeader(
-          "set-cookie",
-          `Access=true; path=/; samesite=lax; httponly`
-        );
-      } */
       const parseRes = await response.json();
 
       confetti({
@@ -87,80 +82,82 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
   };
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "20px",
-        marginBottom: "30px",
-      }}
-    >
-      <Paper
-        elevation={1}
+    <LayoutCheckout>
+      <Container
+        maxWidth="md"
         sx={{
-          padding: "10px",
           display: "flex",
-          flexDirection: "column",
-          gap: 3,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "20px",
+          marginBottom: "30px",
         }}
       >
-        <ArrowBackIcon
-          fontSize="large"
-          color="secondary"
-          onClick={handleClickGoBack}
+        <Paper
+          elevation={1}
           sx={{
-            cursor: "pointer",
-            position: "absolute",
-            "@media (max-width: 768px)": {
-              display: "none",
-            },
+            padding: "10px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
           }}
-        />
-        <Typography variant="h4" align="center" mt={2}>
-          Formulario de compra
-        </Typography>
-        <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-          <Grid
-            item
-            xs={12}
-            md={4}
+        >
+          <ArrowBackIcon
+            fontSize="large"
+            color="secondary"
+            onClick={handleClickGoBack}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
+              cursor: "pointer",
+              position: "absolute",
+              "@media (max-width: 768px)": {
+                display: "none",
+              },
             }}
-          >
-            <BuyingComicDetail comic={comic} />
-          </Grid>
+          />
+          <Typography variant="h4" align="center" mt={2}>
+            Formulario de compra
+          </Typography>
+          <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <BuyingComicDetail comic={comic} />
+            </Grid>
 
-          <Grid
-            item
-            xs={12}
-            md={8}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "5px",
-            }}
-          >
-            {comic.stock > 0 ? (
-              <FormProvider {...methods}>
-                <Forms onSubmit={onSubmit} />
-              </FormProvider>
-            ) : (
-              <Typography variant="h4" align="center" mt={2}>
-                sin stock, lo lamentamos 😣
-              </Typography>
-            )}
+            <Grid
+              item
+              xs={12}
+              md={8}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "5px",
+              }}
+            >
+              {comic.stock > 0 ? (
+                <FormProvider {...methods}>
+                  <Forms onSubmit={onSubmit} />
+                </FormProvider>
+              ) : (
+                <Typography variant="h4" align="center" mt={2}>
+                  sin stock, lo lamentamos 😣
+                </Typography>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+        </Paper>
+      </Container>
+    </LayoutCheckout>
   );
 };
 

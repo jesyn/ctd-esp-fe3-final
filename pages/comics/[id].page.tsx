@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import { IComic } from "contracts/comics.contract";
 import ComicDetail from "dh-marvel/components/comic/ComicDetail";
+import LayoutGeneral from "dh-marvel/components/layouts/layout-general";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 import { toFrontComic, toFrontComics } from "mappers/comic.mapper";
 import { GetStaticProps, NextPage } from "next";
@@ -23,23 +24,25 @@ const ComicsPage: NextPage<PropsComic> = ({ comic }) => {
   };
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "20px",
-        marginBottom: "30px",
-      }}
-    >
-      <ComicDetail
-        comic={comic}
-        onBuyClick={handleClickToBy}
-        onGoBackClick={handleClickGoBack}
-      />
-    </Container>
+    <LayoutGeneral>
+      <Container
+        maxWidth="md"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "20px",
+          marginBottom: "30px",
+        }}
+      >
+        <ComicDetail
+          comic={comic}
+          onBuyClick={handleClickToBy}
+          onGoBackClick={handleClickGoBack}
+        />
+      </Container>
+    </LayoutGeneral>
   );
 };
 

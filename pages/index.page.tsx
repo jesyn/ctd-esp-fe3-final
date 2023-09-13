@@ -7,6 +7,7 @@ import { toFrontComics } from "mappers/comic.mapper";
 import ComicPagination from "dh-marvel/components/Pagination/ComicPagination";
 import { IPaginatedComic } from "contracts/comics.contract";
 import { useRouter } from "next/router";
+import LayoutGeneral from "dh-marvel/components/layouts/layout-general";
 
 interface Props {
   data: IPaginatedComic;
@@ -38,13 +39,15 @@ const Index: NextPage<Props> = ({ data }) => {
         />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <BodySingle title={"Comics"}>
-        <ComicGrid comics={data.comics} />
-        <ComicPagination
-          handleChange={handlePageChange}
-          count={Math.ceil(data.meta.total / pageSize)}
-        />
-      </BodySingle>
+      <LayoutGeneral>
+        <BodySingle title={"Comics"}>
+          <ComicGrid comics={data.comics} />
+          <ComicPagination
+            handleChange={handlePageChange}
+            count={Math.ceil(data.meta.total / pageSize)}
+          />
+        </BodySingle>
+      </LayoutGeneral>
     </>
   );
 };
