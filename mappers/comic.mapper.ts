@@ -6,9 +6,7 @@ import {
 } from "contracts/comics.contract";
 
 export const toFrontComics = (data: ApiComics): IPaginatedComic => {
-  /* if (!data.results) {
-    return {};
-  } */
+  console.log({ data: data.results });
   return {
     comics: data.results.map((item) => ({
       id: item.id,
