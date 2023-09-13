@@ -45,8 +45,8 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     };
     const request = toApiCheckout(_data);
 
-    //const url = "http://comics-online.vercel.app";
-    const url = "http://localhost:3000";
+    const url = "http://comics-online.vercel.app";
+    //const url = "http://localhost:3000";
     try {
       const response = await fetch(`${url}/api/checkout`, {
         method: "POST",
