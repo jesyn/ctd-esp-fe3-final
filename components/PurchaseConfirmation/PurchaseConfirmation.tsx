@@ -34,7 +34,11 @@ const PurchaseConfirmation = ({
         ¡Que disfrutes tu compra!
       </Typography>
 
-      <Grid container justifyContent="center">
+      <Grid
+        container
+        justifyContent="center"
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
         <Grid item xs={12} sm={6}>
           <CardMedia
             component="img"
