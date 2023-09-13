@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import Cards, { Focused } from "react-credit-cards-2";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
 import InputCustom from "../InputCustom/InputCustom";
 import { useFormContext } from "react-hook-form";
 

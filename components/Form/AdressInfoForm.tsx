@@ -18,16 +18,16 @@ const AdressInfoForm = () => {
 
       <Container>
         <InputCustom
-          name="adress"
+          name="address"
           label="Dirección"
           type="text"
           control={control}
           defaultValue=""
           placeholder="eg: Av. Corrientes 1458"
-          error={!!errors.adress}
-          messageError={errors.adress?.message as string}
+          error={!!errors.address}
+          messageError={errors.address?.message as string}
           onChange={async () => {
-            trigger("adress");
+            trigger("address");
           }}
         />
 

@@ -1,6 +1,5 @@
 import { Box, Paper, Button } from "@mui/material";
 import React, { useState } from "react";
-import confetti from "canvas-confetti";
 import { useFormContext } from "react-hook-form";
 import PersonalInfoForm from "./PersonalInfoForm";
 import StepperForm from "../Stepper/Stepper";
@@ -28,7 +27,7 @@ const initialData = {
   },
 };
 
-const Forms = () => {
+const Forms = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
   const {
     handleSubmit,
     trigger,
@@ -42,8 +41,6 @@ const Forms = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  console.log("0" + { data });
-
   const onNextStep = async () => {
     trigger().then(() => {
       if (currentStep === 1) {
@@ -52,7 +49,7 @@ const Forms = () => {
         const email = getFieldState("email");
 
         const inputs = [firstName, lastName, email];
-        console.log({ inputs });
+
         const hasErrors = inputs.some((input) => input.invalid);
 
         if (hasErrors) {
@@ -68,7 +65,6 @@ const Forms = () => {
           },
         };
         setData(updatedData);
-        console.log("1" + { data });
       }
       if (currentStep === 2) {
         const address = getFieldState("address");
@@ -96,7 +92,6 @@ const Forms = () => {
           },
         };
         setData(updatedData);
-        console.log({ data });
       }
       if (currentStep === 3) {
         const cardNumber = getFieldState("cardNumber");
@@ -139,20 +134,6 @@ const Forms = () => {
     } else {
       setCurrentStep(currentStep - 1);
     }
-  };
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-    confetti({
-      zIndex: 999,
-      particleCount: 100,
-      spread: 160,
-      angle: -100,
-      origin: {
-        x: 1,
-        y: 0,
-      },
-    });
   };
 
   return (
