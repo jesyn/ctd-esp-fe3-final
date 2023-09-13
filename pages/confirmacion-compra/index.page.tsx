@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 import React from "react";
 
 const ConfirmationPage = () => {
+  //(ConfirmationPage as any).Layout = LayoutCheckout;
   const router = useRouter();
 
   const handleClickGoHome = () => {
     router.push("/");
   };
+
+  const { comicName, comicPrice, comicImage, address } = router.query;
+
   return (
     <Container
       maxWidth="md"
@@ -22,10 +26,10 @@ const ConfirmationPage = () => {
       }}
     >
       <PurchaseConfirmation
-        comicName={""}
-        comicImage={""}
-        address={""}
-        price={0}
+        comicName={(comicName as string) || ""}
+        comicImage={(comicImage as string) || ""}
+        address={(address as string) || ""}
+        price={(comicPrice as string) || ""}
         onGoBackClick={handleClickGoHome}
       />
     </Container>
