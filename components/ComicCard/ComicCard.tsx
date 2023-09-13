@@ -21,7 +21,7 @@ export const ComicCard = ({ id, title, image }: PropsCard) => {
   };
 
   const handleClickComprar = () => {
-    router.push(`/checkout/${id}`);
+    router.push(`/checkout?comicId=${id}`);
   };
   return (
     <>

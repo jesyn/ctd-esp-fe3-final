@@ -11,12 +11,9 @@ import {
 
 const serverError = "error";
 export const invalidAddress = "invalid";
-export const validCard = "4242 4242 4242 4242".replaceAll(" ", "");
-export const withoutFundsCard = "4111 4111 4111 4111".replaceAll(" ", "");
-export const withoutAuthorizationCard = "4000 4000 4000 4000".replaceAll(
-  " ",
-  ""
-);
+export const validCard = "4242424242424242";
+export const withoutFundsCard = "4111411141114111";
+export const withoutAuthorizationCard = "4000400040004000";
 
 type Data =
   | {
@@ -37,6 +34,7 @@ export default function handler(
   }
   try {
     const body: CheckoutInput = JSON.parse(req.body);
+    console.log(body);
 
     if (body.customer.address.address2 === invalidAddress) {
       res.status(400).json(ERROR_INCORRECT_ADDRESS);
