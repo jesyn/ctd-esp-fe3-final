@@ -14,7 +14,7 @@ const GeneralFooter = () => {
       sx={{ backgroundColor: "#000" }}
     >
       <Link
-        href="https://www.digitalhouse.com"
+        href="https://jm-portfolio-jesyn.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         display={"flex"}
@@ -31,12 +31,7 @@ const GeneralFooter = () => {
           alignItems="center"
           justifyContent={"center"}
         >
-          <Image
-            src="/logo-black.png"
-            alt="Digital House Logo"
-            width={60}
-            height={60}
-          />
+          <Image src="/logo-black.png" alt="Logo jesy" width={60} height={60} />
         </Box>
       </Link>
     </Box>
