@@ -45,7 +45,8 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
     };
     const request = toApiCheckout(_data);
 
-    const url = "http://comics-online.vercel.app";
+    //const url = "http://comics-online.vercel.app";
+    const url = "https://ctd-esp-fe3-final-jesyn.vercel.app/";
     //const url = "http://localhost:3000";
     try {
       const response = await fetch(`${url}/api/checkout`, {
