@@ -52,6 +52,10 @@ const CheckoutPage: NextPage<PropsCheckout> = ({ comic }) => {
       const response = await fetch(`${url}/api/checkout`, {
         method: "POST",
         body: JSON.stringify(request),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
       const parseRes = await response.json();
 
