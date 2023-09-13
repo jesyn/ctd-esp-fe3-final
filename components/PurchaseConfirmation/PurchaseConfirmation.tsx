@@ -6,7 +6,7 @@ interface PropsConfirmation {
   comicName: string;
   comicImage: string;
   address: string;
-  price: number;
+  price: string;
   onGoBackClick: () => void;
 }
 
@@ -31,17 +31,17 @@ const PurchaseConfirmation = ({
           },
         }}
       >
-        ¡Que disfrutes de tu compra!
+        ¡Que disfrutes tu compra!
       </Typography>
 
       <Grid container justifyContent="center">
         <Grid item xs={12} sm={6}>
           <CardMedia
             component="img"
-            alt="nombre" /* {character.name} */
+            alt={comicName}
             height="250"
-            image="/fondo-comics.jpg" /* {character.image} */
-            title="nombre" /* {character.name} */
+            image={comicImage}
+            title={comicName}
           />
         </Grid>
 
@@ -69,10 +69,10 @@ const PurchaseConfirmation = ({
               },
             }}
           >
-            titulo {/* {comicName} */}
+            {comicName}
           </Typography>
           <Typography variant="h6">Importe abonado:</Typography>
-          <Typography variant="h4">$100{/* {comic.price} */}</Typography>
+          <Typography variant="h4">${price}</Typography>
         </Grid>
         <Box
           sx={{
@@ -85,9 +85,7 @@ const PurchaseConfirmation = ({
           }}
         >
           <Typography variant="h6">Dirección de entrega:</Typography>
-          <Typography variant="h5">
-            corrientes 6354 {/* {address} */}
-          </Typography>
+          <Typography variant="h5">{address}</Typography>
           <Button
             variant="contained"
             color="primary"
