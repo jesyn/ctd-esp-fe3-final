@@ -16,7 +16,7 @@ const ComicsPage: NextPage<PropsComic> = ({ comic }) => {
   const router = useRouter();
 
   const handleClickToBy = () => {
-    router.push(`/checkout/${comic.id}`);
+    router.push({ pathname: `/checkout/`, query: { comicId: comic.id } });
   };
 
   const handleClickGoBack = () => {
