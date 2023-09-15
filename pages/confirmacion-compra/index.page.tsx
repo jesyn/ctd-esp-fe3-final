@@ -4,10 +4,10 @@ import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
+import Spinner from "dh-marvel/components/Spinner/Spinner";
 
 const ConfirmationPage = () => {
   const router = useRouter();
-  console.log(Cookies.get("access"));
 
   const handleClickGoHome = () => {
     Cookies.remove("access");
@@ -17,7 +17,6 @@ const ConfirmationPage = () => {
 
   useEffect(() => {
     if (!Cookies.get("access")) {
-      console.log(Cookies.get("access"));
       router.push("/");
     }
   }, [router]);
@@ -37,13 +36,17 @@ const ConfirmationPage = () => {
           marginBottom: "30px",
         }}
       >
-        <PurchaseConfirmation
-          comicName={(comicName as string) || ""}
-          comicImage={(comicImage as string) || ""}
-          address={(address as string) || ""}
-          price={(comicPrice as string) || ""}
-          onGoBackClick={handleClickGoHome}
-        />
+        {!!comicName ? (
+          <PurchaseConfirmation
+            comicName={(comicName as string) || ""}
+            comicImage={(comicImage as string) || ""}
+            address={(address as string) || ""}
+            price={(comicPrice as string) || ""}
+            onGoBackClick={handleClickGoHome}
+          />
+        ) : (
+          <Spinner />
+        )}
       </Container>
     </LayoutCheckout>
   );
