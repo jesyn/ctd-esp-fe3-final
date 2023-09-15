@@ -2,6 +2,7 @@ import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { GetStaticProps, NextPage } from "next";
 import FaqSection from "dh-marvel/components/faqs/FaqSection";
 import { FaqsType } from "dh-marvel/components/faqs";
+import LayoutGeneral from "dh-marvel/components/layouts/layout-general";
 
 interface Props {
   faqs: FaqsType[];
@@ -9,9 +10,9 @@ interface Props {
 
 const faqsPage: NextPage<Props> = ({ faqs }) => {
   return (
-    <BodySingle title={"Preguntas Frecuentes"}>
+    <LayoutGeneral>
       <FaqSection faqs={faqs} />
-    </BodySingle>
+    </LayoutGeneral>
   );
 };
 
