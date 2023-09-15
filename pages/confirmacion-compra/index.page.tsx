@@ -10,14 +10,14 @@ const ConfirmationPage = () => {
   console.log(Cookies.get("access"));
 
   const handleClickGoHome = () => {
-    const cookie = Cookies.remove("access", { path: "/confirmacion-compra" });
+    Cookies.remove("access");
 
     router.push("/");
   };
 
   useEffect(() => {
     if (!Cookies.get("access")) {
-      //console.log(Cookies.get("access"));
+      console.log(Cookies.get("access"));
       router.push("/");
     }
   }, [router]);
