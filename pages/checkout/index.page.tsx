@@ -23,6 +23,7 @@ import { RawCheckoutRequest } from "contracts/checkout.contract";
 import { toApiCheckout } from "mappers/checkout.mapper";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 import Cookies from "js-cookie";
+import Spinner from "dh-marvel/components/Spinner/Spinner";
 
 const CheckoutPage: NextPage = () => {
   const router = useRouter();
@@ -51,7 +52,6 @@ const CheckoutPage: NextPage = () => {
     const id = Number(comicId);
     if (comicId) {
       getComicById(id).then((res) => {
-        console.log(res);
         const resApic = toFrontComic(res);
         setComicData(resApic);
       });
@@ -94,10 +94,7 @@ const CheckoutPage: NextPage = () => {
             y: 0,
           },
         });
-        Cookies.set("access", "true", {
-          expires: 1,
-          path: "/confirmacion-compra",
-        });
+        Cookies.set("access", "true");
         router.push(
           {
             pathname: "/confirmacion-compra",
@@ -139,62 +136,69 @@ const CheckoutPage: NextPage = () => {
             gap: 3,
           }}
         >
-          <ArrowBackIcon
-            fontSize="large"
-            color="secondary"
-            onClick={handleClickGoBack}
-            sx={{
-              cursor: "pointer",
-              position: "absolute",
-              "@media (max-width: 768px)": {
-                display: "none",
-              },
-            }}
-          />
-          <Typography variant="h4" align="center" mt={2}>
-            Formulario de compra
-          </Typography>
           {!!comicData ? (
-            <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-              <Grid
-                item
-                xs={12}
-                md={4}
+            <>
+              <ArrowBackIcon
+                fontSize="large"
+                color="secondary"
+                onClick={handleClickGoBack}
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  cursor: "pointer",
+                  position: "absolute",
+                  "@media (max-width: 768px)": {
+                    display: "none",
+                  },
                 }}
-              >
-                <BuyingComicDetail comic={comicData} />
-              </Grid>
+              />
+              <Typography variant="h4" align="center" mt={2}>
+                Formulario de compra
+              </Typography>
 
               <Grid
-                item
-                xs={12}
-                md={8}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "5px",
-                }}
+                container
+                spacing={2}
+                columnSpacing={{ xs: 1, sm: 2, md: 4 }}
               >
-                {comicData?.stock > 0 ? (
-                  <FormProvider {...methods}>
-                    <Forms onSubmit={onSubmit} />
-                  </FormProvider>
-                ) : (
-                  <Typography variant="h4" align="center" mt={2}>
-                    sin stock, lo lamentamos 😣
-                  </Typography>
-                )}
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <BuyingComicDetail comic={comicData} />
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  md={8}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  {comicData?.stock > 0 ? (
+                    <FormProvider {...methods}>
+                      <Forms onSubmit={onSubmit} />
+                    </FormProvider>
+                  ) : (
+                    <Typography variant="h4" align="center" mt={2}>
+                      sin stock, lo lamentamos 😣
+                    </Typography>
+                  )}
+                </Grid>
               </Grid>
-            </Grid>
+            </>
           ) : (
-            "no hay data"
+            <Spinner />
           )}
         </Paper>
         <Snackbar
