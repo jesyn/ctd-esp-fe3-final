@@ -82,7 +82,6 @@ const CheckoutPage: NextPage = () => {
         },
       });
       const parseRes = await response.json();
-      console.log({ parseRes });
       if (response.ok) {
         confetti({
           zIndex: 999,

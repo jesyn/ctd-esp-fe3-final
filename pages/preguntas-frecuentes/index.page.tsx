@@ -1,4 +1,3 @@
-import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { GetStaticProps, NextPage } from "next";
 import FaqSection from "dh-marvel/components/faqs/FaqSection";
 import { FaqsType } from "dh-marvel/components/faqs";
